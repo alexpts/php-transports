@@ -19,9 +19,4 @@ class TcpSocket extends Socket
 
         return $this;
     }
-
-    public function write(string $buffer, int $length = null): int
-    {
-        return parent::write($buffer . "\0", $length);
-    }
 }
