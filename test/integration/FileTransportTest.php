@@ -6,7 +6,7 @@ use PTS\Transport\File;
 class FileTransportTest extends TestCase
 {
 
-    protected $file = __DIR__ . '/temp//log.txt';
+    protected $file = __DIR__ . '/log.txt';
 
     public function tearDown(): void
     {
