@@ -12,7 +12,10 @@ class File extends Socket
         $include_path = $options['use_include_path'] ?? false;
         $context = $options['context'] ?? null;
 
-        $this->socket = fopen($address, $mode, $include_path, $context);
+        $params = [$address, $mode, $include_path];
+        $context && array_push($params, $context);
+
+        $this->socket = fopen(...$params);
 
         return $this;
     }
