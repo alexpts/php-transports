@@ -7,13 +7,13 @@ use RuntimeException;
 
 class TcpSocket extends Socket
 {
-    protected $socketPrefix = 'tcp://';
+    protected $schema = 'tcp://';
 
-    public function connect(string $address, int $port = 0, array $options = []): TransportInterface
+    public function connect(string $address, array $options = []): TransportInterface
     {
-        parent::connect($address, $port, $options);
+        parent::connect($address, $options);
 
-        if ($this->socket === false) {
+        if ($this->target === false) {
             throw new RuntimeException('can`t open socket - ' . $this->errorNumber . ': ' . $this->errorMessage);
         }
 

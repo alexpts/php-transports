@@ -5,5 +5,5 @@ namespace PTS\Transport;
 
 class UnixSocket extends TcpSocket
 {
-    protected $socketPrefix = 'unix://';
+    protected $schema = 'unix://';
 }

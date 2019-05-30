@@ -24,7 +24,7 @@ class FileTransportTest extends TestCase
     {
         $transport = new File;
 
-        $transport->connect($this->file, 0, ['mode' => 'w+']);
+        $transport->connect($this->file, ['mode' => 'w+']);
         static::assertTrue($transport->isConnected());
 
         $bytes = $transport->write($message);

@@ -9,12 +9,12 @@ class UdpSocket extends Socket
     /** @var bool */
     protected $isConnected = false;
     /** @var string  */
-    protected $socketPrefix = 'udp://';
+    protected $schema = 'udp://';
 
-    public function connect(string $address, int $port = 0, array $options = []): TransportInterface
+    public function connect(string $address, array $options = []): TransportInterface
     {
         $this->isConnected = true;
-        return parent::connect($address, $port, $options);
+        return parent::connect($address, $options);
     }
 
     public function isConnected(): bool
