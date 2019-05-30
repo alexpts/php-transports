@@ -9,7 +9,7 @@
         "tcp",
         "unix",
         "socket",
-        "transports",
+        "transport",
         "net"
     ],
     "config": {
