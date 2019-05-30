@@ -17,6 +17,14 @@ abstract class Socket implements TransportInterface
     protected $errorNumber = 0;
     protected $errorMessage = '';
 
+    /** @var Writer */
+    protected $writer;
+
+    public function __construct(Writer $writer = null)
+    {
+        $this->writer = $writer ?? new Writer;
+    }
+
     /**
      * @param string $address
      * @param int $port
@@ -41,21 +49,7 @@ abstract class Socket implements TransportInterface
      */
     public function write(string $buffer, int $length = null): int
     {
-        $length = $length ?? mb_strlen($buffer, '8bit');
-
-        $written = 0;
-        while ($written < $length) {
-            $chunk = mb_substr($buffer, $written, $length, '8bit');
-            $byteCount = fwrite($this->socket, $chunk, $length);
-
-            if (!$byteCount) {
-                break;
-            }
-
-            $written += $byteCount;
-        }
-
-        return $written;
+        return $this->writer->write($this->socket, $buffer, $length);
     }
 
     public function isConnected(): bool
