@@ -38,9 +38,9 @@ class UdpSocketTest extends TestCase
         socket_bind($socket, self::HOST, self::PORT);
 
         // увеличиваем буффер сервера для чтения большого числа переданных пакетов
-        ini_set('memory_limit', '24M');
-        socket_set_option($socket, SOL_SOCKET, SO_RCVBUF, 2000000);
-        socket_set_option($socket, SOL_SOCKET, SO_SNDBUF, 2000000);
+        ini_set('memory_limit', '32M');
+        socket_set_option($socket, SOL_SOCKET, SO_RCVBUF, 5000000);
+        socket_set_option($socket, SOL_SOCKET, SO_SNDBUF, 5000000);
 
         return $socket;
     }
@@ -100,7 +100,7 @@ class UdpSocketTest extends TestCase
     public function dataProvider(): array
     {
         $longMessage = '';
-        for ($i = 0; $i < 100000; $i++) {
+        for ($i = 0; $i < 300000; $i++) {
             $longMessage .= "message: $i" . PHP_EOL;
         }
 
@@ -108,7 +108,7 @@ class UdpSocketTest extends TestCase
             ['some message', 12],
             ['', 0],
             ["string #1 \r\nstring #2", 21],
-            [$longMessage, 1488890],
+            [$longMessage, mb_strlen($longMessage, '8bit')],
         ];
     }
 }
