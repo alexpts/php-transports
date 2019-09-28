@@ -24,7 +24,8 @@
     "minimum-stability": "stable",
     "require": {
         "php": "~7.2",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-sockets": "*"
     },
     "autoload": {
         "psr-4": {

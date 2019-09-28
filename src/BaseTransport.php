@@ -5,7 +5,6 @@ namespace PTS\Transport;
 
 abstract class BaseTransport implements TransportInterface
 {
-
     /**
      * @var resource|null|false
      */
@@ -16,7 +15,7 @@ abstract class BaseTransport implements TransportInterface
     /** @var Writer */
     protected $writer;
 
-    public function __construct(Writer $writer = null)
+    public function __construct(WriterInterface $writer = null)
     {
         $this->writer = $writer ?? new Writer;
     }

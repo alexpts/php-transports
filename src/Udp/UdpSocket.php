@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace PTS\Transport;
+namespace PTS\Transport\Udp;
+
+use PTS\Transport\Socket;
+use PTS\Transport\TransportInterface;
 
 class UdpSocket extends Socket
 {
@@ -19,7 +22,7 @@ class UdpSocket extends Socket
 
     public function isConnected(): bool
     {
-        return $this->isConnected;
+        return $this->isConnected && $this->target !== null;
     }
 
     public function close(): void

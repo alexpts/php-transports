@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace PTS\Transport;
+namespace PTS\Transport\Tcp;
 
+use PTS\Transport\Socket;
+use PTS\Transport\TransportInterface;
 use RuntimeException;
 
 class TcpSocket extends Socket

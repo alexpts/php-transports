@@ -2,7 +2,7 @@
 
 namespace PTS\Transport;
 
-class Writer
+class Writer implements WriterInterface
 {
 
     /**
@@ -18,7 +18,7 @@ class Writer
 
         $written = 0;
         while ($written < $length) {
-            $chunk = mb_substr($buffer, $written, $length, '8bit');
+            $chunk = mb_strcut($buffer, $written, $length, '8bit');
             $byteCount = fwrite($target, $chunk, $length);
 
             if (!$byteCount) {

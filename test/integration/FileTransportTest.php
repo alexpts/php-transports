@@ -42,6 +42,7 @@ class FileTransportTest extends TestCase
             ['some message', 12],
             ['', 0],
             ["string #1 \r\nstring #2", 21],
+            [str_repeat("very long string\n", 100), 1700],
         ];
     }
 }

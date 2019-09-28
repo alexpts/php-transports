@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace PTS\Transport;
+namespace PTS\Transport\Udp;
 
-class SplitPackageUdp extends UdpSocket
+class GelfUdp extends UdpSocket
 {
 
     public const CHUNK_MAGIC = "\x1e\x0f";
