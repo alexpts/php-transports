@@ -5,19 +5,21 @@ namespace PTS\Transport;
 
 abstract class BaseTransport implements TransportInterface
 {
-    /**
-     * @var resource|null|false
-     */
+    /** @var resource|null|false */
     protected $target;
-
+    /** @var string */
     protected $schema = '';
-
-    /** @var Writer */
+    /** @var WriterInterface */
     protected $writer;
 
     public function __construct(WriterInterface $writer = null)
     {
         $this->writer = $writer ?? new Writer;
+    }
+
+    public function getWriter(): WriterInterface
+    {
+        return $this->writer;
     }
 
     /**

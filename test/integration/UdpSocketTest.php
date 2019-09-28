@@ -82,6 +82,7 @@ class UdpSocketTest extends TestCase
         $transport->connect(self::HOST, ['port' => self::PORT]);
         static::assertTrue($transport->isConnected());
 
+        $transport->getWriter()->setMaxChunkSize(8192);
         $bytes = $transport->write($message);
         static::assertSame($bytes, $countByte);
 

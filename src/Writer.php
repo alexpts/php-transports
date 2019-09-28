@@ -5,6 +5,14 @@ namespace PTS\Transport;
 class Writer implements WriterInterface
 {
 
+    /** @var int */
+    protected $maxChunkSize = 0;
+
+    public function setMaxChunkSize(int $size = 8192): void
+    {
+        $this->maxChunkSize = $size;
+    }
+
     /**
      * @param resource $target
      * @param string $buffer
@@ -18,8 +26,9 @@ class Writer implements WriterInterface
 
         $written = 0;
         while ($written < $length) {
-            $chunk = mb_strcut($buffer, $written, $length, '8bit');
-            $byteCount = fwrite($target, $chunk, $length);
+            $size = $this->getWriteSize($length, $written);
+            $chunk = mb_strcut($buffer, $written, $size, '8bit');
+            $byteCount = fwrite($target, $chunk, $size);
 
             if (!$byteCount) {
                 break;
@@ -29,5 +38,17 @@ class Writer implements WriterInterface
         }
 
         return $written;
+    }
+
+    protected function getWriteSize(int $allSize, int $written): int
+    {
+        $maxSize = $this->maxChunkSize;
+        if ($maxSize === 0) {
+            return $allSize;
+        }
+
+        $needWrite = $allSize - $written;
+
+        return $needWrite > $maxSize ? $maxSize : $needWrite;
     }
 }
