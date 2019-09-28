@@ -40,6 +40,7 @@ class UdpSocketTest extends TestCase
         // увеличиваем буффер сервера для чтения большого числа переданных пакетов
         ini_set('memory_limit', '24M');
         socket_set_option($socket, SOL_SOCKET, SO_RCVBUF, 2000000);
+        socket_set_option($socket, SOL_SOCKET, SO_SNDBUF, 2000000);
 
         return $socket;
     }
