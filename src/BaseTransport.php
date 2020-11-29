@@ -7,10 +7,8 @@ abstract class BaseTransport implements TransportInterface
 {
     /** @var resource|null|false */
     protected $target;
-    /** @var string */
-    protected $schema = '';
-    /** @var WriterInterface */
-    protected $writer;
+    protected string $schema = '';
+    protected WriterInterface $writer;
 
     public function __construct(WriterInterface $writer = null)
     {
@@ -22,12 +20,6 @@ abstract class BaseTransport implements TransportInterface
         return $this->writer;
     }
 
-    /**
-     * @param string $buffer
-     * @param int|null $length - записать число байт в сокет
-     *
-     * @return false|int число записанных байт или false
-     */
     public function write(string $buffer, int $length = null): int
     {
         return $this->writer->write($this->target, $buffer, $length);

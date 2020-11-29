@@ -4,6 +4,7 @@ namespace PTS\Transport\tests;
 
 use PHPUnit\Framework\TestCase;
 use PTS\Transport\Tcp\TcpSocket;
+use Socket;
 
 class TcpSocketTest extends TestCase
 {
@@ -11,8 +12,8 @@ class TcpSocketTest extends TestCase
     protected const HOST = '127.0.0.1';
     protected const PORT = 9999;
 
-    protected static $serverSocket;
-    protected static $file = __DIR__ . '/tcp.txt';
+    protected static ?Socket $serverSocket = null;
+    protected static string $file = __DIR__ . '/tcp.txt';
 
 
     public static function setUpBeforeClass(): void
@@ -31,7 +32,7 @@ class TcpSocketTest extends TestCase
         @unlink(self::$file);
     }
 
-    protected static function createTcpServer()
+    protected static function createTcpServer(): bool|Socket
     {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         socket_bind($socket, self::HOST, self::PORT);
@@ -70,7 +71,7 @@ class TcpSocketTest extends TestCase
         static::assertTrue($transport->isConnected());
 
         $bytes = $transport->write($message);
-        static::assertSame($bytes, $countByte);
+        static::assertSame($countByte, $bytes);
 
         $transport->close();
         static::assertFalse($transport->isConnected());
@@ -87,5 +88,15 @@ class TcpSocketTest extends TestCase
             ["string #1 \r\nstring #2", 21],
             [str_repeat("very long string\n", 100), 1700],
         ];
+    }
+
+    public function testWriteToBadSocket(): void
+    {
+        $transport = new TcpSocket;
+
+        $this->expectError();
+        $this->expectErrorMessage('fsockopen(): Unable to connect to tcp://127.0.0.1:4444 (Connection refused)');
+        $transport->connect(self::HOST, ['port' => 4444]);
+        static::assertTrue($transport->isConnected());
     }
 }

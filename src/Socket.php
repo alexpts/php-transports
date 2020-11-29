@@ -6,16 +6,10 @@ namespace PTS\Transport;
 class Socket extends BaseTransport
 {
 
-    protected $errorNumber = 0;
-    protected $errorMessage = '';
+    protected int $errorNumber = 0;
+    protected string $errorMessage = '';
 
-    /**
-     * @param string $address
-     * @param array $options
-     *
-     * @return TransportInterface
-     */
-    public function connect(string $address, array $options = []): TransportInterface
+    public function connect(string $address, array $options = []): static
     {
         if ($this->target === null) {
             $timeout = (float)($options['timeout'] ??(float) ini_get('default_socket_timeout'));

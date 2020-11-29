@@ -5,13 +5,18 @@ use PTS\Transport\File;
 
 class FileTransportTest extends TestCase
 {
-
-    protected $file = __DIR__ . '/log.txt';
+    protected string $file = __DIR__ . '/log.txt';
 
     public function tearDown(): void
     {
         parent::tearDown();
         @unlink($this->file);
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        @touch($this->file);
     }
 
     /**
@@ -28,7 +33,7 @@ class FileTransportTest extends TestCase
         static::assertTrue($transport->isConnected());
 
         $bytes = $transport->write($message);
-        static::assertSame($bytes, $countByte);
+        static::assertSame($countByte, $bytes);
 
         $transport->close();
         static::assertFalse($transport->isConnected());
@@ -44,5 +49,21 @@ class FileTransportTest extends TestCase
             ["string #1 \r\nstring #2", 21],
             [str_repeat("very long string\n", 100), 1700],
         ];
+    }
+
+    public function testWriteToReadOnlyMode(): void
+    {
+        $transport = new File;
+        $message = 'test';
+        $expectedBytes = 0;
+
+        $transport->connect($this->file, ['mode' => 'r']);
+        static::assertTrue($transport->isConnected());
+
+        $bytes = $transport->write($message);
+        static::assertSame($expectedBytes, $bytes);
+
+        $transport->close();
+        static::assertFalse($transport->isConnected());
     }
 }

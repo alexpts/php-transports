@@ -6,7 +6,7 @@ namespace PTS\Transport;
 class File extends BaseTransport
 {
 
-    public function connect(string $address, array $options = []): TransportInterface
+    public function connect(string $address, array $options = []): static
     {
         $mode = $options['mode'] ?? 'a';
         $include_path = $options['use_include_path'] ?? false;

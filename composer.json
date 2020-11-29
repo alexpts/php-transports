@@ -23,7 +23,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "~7.2",
+        "php": "~8.0",
         "ext-mbstring": "*",
         "ext-sockets": "*"
     },
@@ -33,6 +33,6 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.3"
+        "phpunit/phpunit": "^9.4"
     }
 }

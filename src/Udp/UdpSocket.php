@@ -4,17 +4,14 @@ declare(strict_types=1);
 namespace PTS\Transport\Udp;
 
 use PTS\Transport\Socket;
-use PTS\Transport\TransportInterface;
 
 class UdpSocket extends Socket
 {
 
-    /** @var bool */
-    protected $isConnected = false;
-    /** @var string  */
-    protected $schema = 'udp://';
+    protected bool $isConnected = false;
+    protected string $schema = 'udp://';
 
-    public function connect(string $address, array $options = []): TransportInterface
+    public function connect(string $address, array $options = []): static
     {
         $this->isConnected = true;
         return parent::connect($address, $options);

@@ -10,7 +10,7 @@ interface WriterInterface
      * @param string $buffer
      * @param int|null $length
      *
-     * @return false|int size written bytes
+     * @return int size written bytes
      */
     public function write($target, string $buffer, int $length = null): int;
 

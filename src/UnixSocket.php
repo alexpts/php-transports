@@ -7,5 +7,5 @@ use PTS\Transport\Tcp\TcpSocket;
 
 class UnixSocket extends TcpSocket
 {
-    protected $schema = 'unix://';
+    protected string $schema = 'unix://';
 }

@@ -6,6 +6,15 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
 >
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">../src/</directory>
+        </include>
+        <report>
+            <clover outputFile="clover.xml"/>
+        </report>
+    </coverage>
+
     <testsuites>
         <testsuite name="unit">
             <directory>./unit</directory>
@@ -14,14 +23,4 @@
             <directory>./integration</directory>
         </testsuite>
     </testsuites>
-
-    <logging>
-        <log type="coverage-clover" target="clover.xml"/>
-    </logging>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src/</directory>
-        </whitelist>
-    </filter>
 </phpunit>
